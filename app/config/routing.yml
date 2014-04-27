@@ -1,0 +1,6 @@
+sportlobster_api:
+    resource: "@SportlobsterApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    defaults:
+        _format: json
