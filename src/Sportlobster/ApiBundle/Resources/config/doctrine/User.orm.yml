@@ -1,0 +1,12 @@
+Sportlobster\ApiBundle\Entity\User:
+    type: entity
+    repositoryClass: Sportlobster\ApiBundle\Entity\UserRepository
+    table: sl_user
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        username:
+            type: string
+            length: 100

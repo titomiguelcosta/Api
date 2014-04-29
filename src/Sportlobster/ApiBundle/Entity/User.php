@@ -3,6 +3,7 @@
 namespace Sportlobster\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sportlobster\ApiBundle\Model\User as UserModel;
 
 /**
  * User
@@ -10,24 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Sportlobster\ApiBundle\Entity\UserRepository")
  */
-class User
+class User extends UserModel
 {
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
-     */
-    private $username;
 
     /**
      * Get id
@@ -39,27 +26,9 @@ class User
         return $this->id;
     }
 
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return User
-     */
-    public function setUsername($username)
+    public function setId($id)
     {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string 
-     */
-    public function getUsername()
-    {
-        return $this->username;
+        $this->id = $id;
     }
 
 }

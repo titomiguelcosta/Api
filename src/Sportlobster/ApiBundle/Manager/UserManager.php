@@ -1,51 +1,41 @@
 <?php
 
-namespace Sportlobster\ApiBundle\Model;
+namespace Sportlobster\ApiBundle\Manager;
 
 use Sportlobster\ApiBundle\Entity\UserRepository as UserEntityRepository;
 use Doctrine\Common\Cache\Cache as CacheInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sportlobster\ApiBundle\Entity\User as UserEntity;
-use Sportlobster\ApiBundle\Request\User\UserCreateRequest;
 use Sportlobster\ApiBundle\Cache\UserCacheConfiguration;
 
-class UserRepository
+class UserManager
 {
 
     protected $userEntityRepository;
     protected $cacheProvider;
     protected $cacheConfiguration;
 
-    public function __construct(UserEntityRepository $userEntityRepository, CacheInterface $cache)
+    public function __construct(UserEntityRepository $userEntityRepository, CacheInterface $cache, UserCacheConfiguration $userCacheConfiguration)
     {
         $this->userEntityRepository = $userEntityRepository;
         $this->cacheProvider = $cache;
-        $this->cacheConfiguration = new UserCacheConfiguration();
+        $this->cacheConfiguration = $userCacheConfiguration;
     }
 
     public function getById($id)
     {
         $key = $this->cacheConfiguration->getUserKey($id);
-        $userModel = $this->cacheProvider->fetch($key);
+        $userEntity = $this->cacheProvider->fetch($key);
 
-        if (false === $userModel) {
+        if (false === $userEntity) {
             $userEntity = $this->userEntityRepository->find($id);
 
             if (false === $userEntity instanceof UserEntity) {
                 throw new NotFoundHttpException('User not found.');
             }
 
-            $userModel = User::createFromEntity($userEntity);
-
-            $this->cacheProvider->save($key, $userModel, $this->cacheConfiguration->getUserLifetime());
+            $this->cacheProvider->save($key, $userEntity, $this->cacheConfiguration->getUserLifetime());
         }
-
-        return $userModel;
-    }
-
-    public function createFromUserCreateRequest(UserCreateRequest $userCreateRequest)
-    {
-        $userEntity = $this->userEntityRepository->createUser($userCreateRequest->getUsername());
 
         return $userEntity;
     }

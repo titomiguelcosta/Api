@@ -19,22 +19,22 @@ class UserController extends Controller
      */
     public function getAction($id)
     {
-        $userRepository = $this->get('sportlobster.api.model.repository.user');
-        $userModel = $userRepository->getById($id);
+        $userManager = $this->get('sportlobster.api.manager.user');
+        $userModel = $userManager->getById($id);
 
         return $userModel->toArray();
     }
 
     /**
-     * @Route("/users/{id}", requirements={"id": "\d+"}, name="user.create")
+     * @Route("/users", requirements={"id": "\d+"}, name="user.create")
      * @Method({"POST"})
      * @View(statusCode=201)
      * @BadRequest("Sportlobster\ApiBundle\Type\User\UserCreateType")
      */
     public function createAction(UserCreateRequest $userCreateRequest)
     {
-        $userRepository = $this->get('sportlobster.api.model.repository.user');
-        $userModel = $userRepository->createFromUserCreateRequest($userCreateRequest);
+        $userEntityRepository = $this->get('sportlobster.api.entity.repository.user');
+        $userModel = $userEntityRepository->createFromUserCreateRequest($userCreateRequest);
 
         return $this->getAction($userModel->getId());
     }

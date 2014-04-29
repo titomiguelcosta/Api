@@ -2,8 +2,6 @@
 
 namespace Sportlobster\ApiBundle\Model;
 
-use Sportlobster\ApiBundle\Entity\User as UserEntity;
-
 class User implements ModelInterface
 {
 
@@ -18,19 +16,24 @@ class User implements ModelInterface
     {
         $this->username = $username;
     }
+    
+    protected $firstName;
+    
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
 
     public function toArray($type = self::COMPLETE)
     {
         return array(
             'username' => $this->getUsername()
         );
-    }
-
-    public static function createFromEntity(UserEntity $userEntity)
-    {
-        $userModel = new static();
-        $userModel->setUsername($userEntity->getUsername());
-        return $userModel;
     }
 
 }
