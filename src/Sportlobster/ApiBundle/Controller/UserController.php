@@ -20,9 +20,9 @@ class UserController extends Controller
     public function getAction($id)
     {
         $userManager = $this->get('sportlobster.api.manager.user');
-        $userModel = $userManager->getById($id);
+        $userEntity = $userManager->getById($id);
 
-        return $userModel->toArray();
+        return $userEntity->toArray();
     }
 
     /**
@@ -34,9 +34,9 @@ class UserController extends Controller
     public function createAction(UserCreateRequest $userCreateRequest)
     {
         $userEntityRepository = $this->get('sportlobster.api.entity.repository.user');
-        $userModel = $userEntityRepository->createFromUserCreateRequest($userCreateRequest);
+        $userEntity = $userEntityRepository->createFromUserCreateRequest($userCreateRequest);
 
-        return $this->getAction($userModel->getId());
+        return $this->getAction($userEntity->getId());
     }
 
 }
