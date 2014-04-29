@@ -26,7 +26,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/users", requirements={"id": "\d+"}, name="user.create")
+     * @Route("/users", name="user.create")
      * @Method({"POST"})
      * @View(statusCode=201)
      * @BadRequest("Sportlobster\ApiBundle\Type\User\UserCreateType")
