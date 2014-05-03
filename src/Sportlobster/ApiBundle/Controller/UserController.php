@@ -2,6 +2,7 @@
 
 namespace Sportlobster\ApiBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,13 +17,14 @@ class UserController extends Controller
      * @Route("/users/{id}", requirements={"id": "\d+"}, name="user.get")
      * @Method({"GET"})
      * @View(statusCode=200)
+     * @Cache(expires="+2 days", public=true)
      */
     public function getAction($id)
     {
         $userManager = $this->get('sportlobster.api.manager.user');
         $userEntity = $userManager->getById($id);
 
-        return $userEntity->toArray();
+        return $userEntity;
     }
 
     /**
@@ -36,7 +38,7 @@ class UserController extends Controller
         $userEntityRepository = $this->get('sportlobster.api.entity.repository.user');
         $userEntity = $userEntityRepository->createFromUserCreateRequest($userCreateRequest);
 
-        return $this->getAction($userEntity->getId());
+        return $userEntity;
     }
 
 }

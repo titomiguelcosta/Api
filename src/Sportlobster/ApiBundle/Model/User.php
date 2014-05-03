@@ -2,9 +2,18 @@
 
 namespace Sportlobster\ApiBundle\Model;
 
-class User implements ModelInterface
+use JMS\Serializer\Annotation as JMS;
+
+/**
+ * @JMS\ExclusionPolicy("all")
+ */
+class User implements SerializableInterface
 {
 
+    /**
+     * @JMS\Expose()
+     * @JMS\Type("string")
+     */
     protected $username;
 
     public function getUsername()
@@ -16,9 +25,15 @@ class User implements ModelInterface
     {
         $this->username = $username;
     }
-    
+
+    /** 
+     * @JMS\Expose()
+     * @JMS\Accessor(getter="getFullName")
+     * @JMS\Type("string")
+     * @JMS\SerializedName("full_name")
+     */
     protected $firstName;
-    
+
     public function getFirstName()
     {
         return $this->firstName;
@@ -29,11 +44,9 @@ class User implements ModelInterface
         $this->firstName = $firstName;
     }
 
-    public function toArray($type = self::COMPLETE)
+    public function getFullName()
     {
-        return array(
-            'username' => $this->getUsername()
-        );
+        return $this->getUsername() . ': ' . $this->getFirstName();
     }
 
 }

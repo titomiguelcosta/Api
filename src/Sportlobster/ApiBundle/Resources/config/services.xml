@@ -13,6 +13,7 @@
         <parameter key="sportlobster.api.memcached.class">Memcached</parameter>
         <parameter key="sportlobster.api.memcached.host">localhost</parameter>
         <parameter key="sportlobster.api.memcached.port">11211</parameter>
+        <parameter key="sportlobster.api.model.view.class">Sportlobster\ApiBundle\EventListener\ModelViewListener</parameter>
     </parameters>
     
     <services>
@@ -39,5 +40,9 @@
             <argument type="service" id="sportlobster.api.doctrine.cache.memcached" />
             <argument type="service" id="sportlobster.api.user.cache.configuration" />
         </service>
+        <service id="sportlobster.api.model.view" class="%sportlobster.api.model.view.class%">
+            <argument type="service" id="jms_serializer" />
+            <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" priority="255" />
+        </service>    
     </services>
 </container>

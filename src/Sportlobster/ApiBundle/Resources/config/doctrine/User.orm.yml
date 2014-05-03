@@ -10,3 +10,4 @@ Sportlobster\ApiBundle\Entity\User:
         username:
             type: string
             length: 100
+            unique: true
