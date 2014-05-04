@@ -52,7 +52,6 @@ class UserController extends Controller
         $userEntity = $userManager->getById($id);
 
         $viewResponse->setData(array('user' => $userEntity));
-        $viewResponse->setHeader('Location', $this->generateUrl('users.get', array('id' => $id), true));
         
         return $viewResponse;
     }
@@ -76,10 +75,15 @@ class UserController extends Controller
      */
     public function createAction(UserCreateRequest $userCreateRequest)
     {
+        $viewResponse = ViewResponse::create();
+        
         $userEntityRepository = $this->get('sportlobster.api.entity.repository.user');
         $userEntity = $userEntityRepository->createFromUserCreateRequest($userCreateRequest);
+        
+        $viewResponse->setData(array('user' => $userEntity));
+        $viewResponse->setHeader('Location', $this->generateUrl('users.get', array('id' => $id), true));
 
-        return $userEntity;
+        return $viewResponse;
     }
 
 }
