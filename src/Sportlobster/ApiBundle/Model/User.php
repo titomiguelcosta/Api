@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * @JMS\ExclusionPolicy("all")
  */
-class User implements SerializableInterface
+class User
 {
 
     /**
