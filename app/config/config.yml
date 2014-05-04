@@ -68,17 +68,32 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-fos_rest:
-    param_fetcher_listener: true
-    body_listener: true
-    format_listener: true
-    view:
-        view_response_listener: force
-        formats:
-            json: true
-        templating_formats:
-            json: false
-
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }
+    request: { converters: true }
+
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener:
+        rules:
+            - { path: '^/api', priorities: ['html'], fallback_format: html, prefer_extension: false }
+            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false }
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+        force_redirects:
+            json: true
+        failed_validation: HTTP_BAD_REQUEST
+    
+nelmio_api_doc:
+    name: Sportlobster API
+    sandbox:
+        enabled: true
+        accept_type: application/json
+        body_format: json
+        request_format:
+            method: accept_header
+            default_format: json

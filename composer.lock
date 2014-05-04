@@ -2112,17 +2112,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/titomiguelcosta/BadRequestBundle.git",
-                "reference": "5ad3c6470ac0e32e5295e76daa0c196ce89dbc4c"
+                "reference": "94b51df898798ce5da1bdc7610a5e8e2aa98eb38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/titomiguelcosta/BadRequestBundle/zipball/5ad3c6470ac0e32e5295e76daa0c196ce89dbc4c",
-                "reference": "5ad3c6470ac0e32e5295e76daa0c196ce89dbc4c",
+                "url": "https://api.github.com/repos/titomiguelcosta/BadRequestBundle/zipball/94b51df898798ce5da1bdc7610a5e8e2aa98eb38",
+                "reference": "94b51df898798ce5da1bdc7610a5e8e2aa98eb38",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": ">=2.3,<2.5-dev"
+                "symfony/framework-bundle": ">=2.3,<2.6-dev"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2159,7 +2159,7 @@
                 "source": "https://github.com/titomiguelcosta/BadRequestBundle/tree/master",
                 "issues": "https://github.com/titomiguelcosta/BadRequestBundle/issues"
             },
-            "time": "2014-03-22 13:05:04"
+            "time": "2014-05-04 13:36:56"
         },
         {
             "name": "twig/extensions",

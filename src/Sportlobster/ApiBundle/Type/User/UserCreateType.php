@@ -11,7 +11,8 @@ class UserCreateType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username');
+        $builder
+            ->add('username', null, array('description' => 'Username of the user'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

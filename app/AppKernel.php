@@ -21,11 +21,8 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new Tmc\BadRequestBundle\TmcBadRequestBundle(),
             new Sportlobster\ApiBundle\SportlobsterApiBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
         );
-
-        if (in_array($this->getEnvironment(), array('dev'))) {
-            $bundles[] = new Nelmio\ApiDocBundle\NelmioApiDocBundle();
-        }
         
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();

@@ -13,6 +13,7 @@ class User implements SerializableInterface
     /**
      * @JMS\Expose()
      * @JMS\Type("string")
+     * @JMS\Groups({"User", "Admin"})
      */
     protected $username;
 
@@ -31,6 +32,7 @@ class User implements SerializableInterface
      * @JMS\Accessor(getter="getFullName")
      * @JMS\Type("string")
      * @JMS\SerializedName("full_name")
+     * @JMS\Groups({"Admin"})
      */
     protected $firstName;
 
