@@ -26,7 +26,7 @@ class UserController extends Controller
      *          }
      *      }
      * 
-     * @Route("/users/{id}", requirements={"id": "\d+"}, name="users.get")
+     * @Route("/users/{username}", requirements={"username": "\w+"}, name="users.get")
      * @Method({"GET"})
      * @View(statusCode=200)
      * @View(serializerGroups={"User"})
@@ -35,7 +35,7 @@ class UserController extends Controller
      *  section="Users",
      *  resource=true,
      *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="id of the user"},
+     *      {"name"="username", "dataType"="string", "requirement"="\w+", "description"="username of the user"},
      *  },
      *  statusCodes={
      *    200="User found",
@@ -44,12 +44,12 @@ class UserController extends Controller
      *  output="Sportlobster\ApiBundle\Entity\User"
      * )
      */
-    public function getAction($id)
+    public function getAction($username)
     {
         $viewResponse = ViewResponse::create();
-        
+
         $userManager = $this->get('sportlobster.api.manager.user');
-        $userEntity = $userManager->getById($id);
+        $userEntity = $userManager->getByUsername($username);
 
         $viewResponse->setData(array('user' => $userEntity));
         
@@ -64,7 +64,7 @@ class UserController extends Controller
      * @ApiDoc(
      *  section="Users",
      *  resource=true,
-     *  description="Creation of a new user",
+     *  description="Create a new user",
      *  statusCodes={
      *    201="User created",
      *    400="Bad request"
@@ -76,14 +76,36 @@ class UserController extends Controller
     public function createAction(UserCreateRequest $userCreateRequest)
     {
         $viewResponse = ViewResponse::create();
-        
+
         $userEntityRepository = $this->get('sportlobster.api.entity.repository.user');
         $userEntity = $userEntityRepository->createFromUserCreateRequest($userCreateRequest);
         
         $viewResponse->setData(array('user' => $userEntity));
-        $viewResponse->setHeader('Location', $this->generateUrl('users.get', array('id' => $id), true));
+        $viewResponse->setHeader('Location', $this->generateUrl('users.get', array('username' => $userEntity->getUsername()), true));
 
         return $viewResponse;
+    }
+    
+    /**
+     * @Route("/users/{username}", name="users.edit")
+     * @Method({"PUT"})
+     * @View(statusCode=200)
+     * @BadRequest("Sportlobster\ApiBundle\Type\User\UserCreateType")
+     * @ApiDoc(
+     *  section="Users",
+     *  resource=true,
+     *  description="Edit a user",
+     *  statusCodes={
+     *    200="User edited",
+     *    400="Bad request"
+     *  },
+     *  input="Sportlobster\ApiBundle\Type\User\UserCreateType",
+     *  output="Sportlobster\ApiBundle\Entity\User"
+     * )
+     */
+    public function editAction(UserCreateRequest $userCreateRequest)
+    {
+        
     }
 
 }

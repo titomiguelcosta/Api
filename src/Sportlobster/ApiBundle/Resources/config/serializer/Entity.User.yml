@@ -1,0 +1,15 @@
+Sportlobster\ApiBundle\Entity\User:
+    exclusion_policy: all
+    properties:
+        username:
+            expose: true
+            type: string
+            groups: [User, Admin]
+            since_version: 0.0.1
+        firstName:
+            expose: true
+            accessor:
+                getter: getFullName
+            type: string
+            serializer_name: full_name
+            groups: [Admin]

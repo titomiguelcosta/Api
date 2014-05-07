@@ -2,6 +2,7 @@
 
 namespace Sportlobster\ApiBundle\Features\Context;
 
+use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
@@ -37,5 +38,21 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
     {
         return $this->kernel;
     }
+    
+    /**
+     * @BeforeSuite
+     */
+     public static function prepare(BeforeSuiteScope $event)
+     {
+         $rootDir = realpath(__DIR__.'/../../../../../app');
+         
+         $dropDatabase = $rootDir.'/console doctrine:database:drop --force --no-interaction --env=test';
+         $createDatabase = $rootDir.'/console doctrine:database:create --no-interaction --env=test';
+         $migrateDatabase = $rootDir.'/console doctrine:migrations:migrate --no-interaction --env=test';
+         
+         shell_exec($dropDatabase);
+         shell_exec($createDatabase);
+         shell_exec($migrateDatabase);
+     }
 
 }

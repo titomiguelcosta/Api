@@ -4,7 +4,6 @@ Feature:
     So I can access a user details
 
     Scenario: As an authenticated API user I can retrieve details of a valid user
-        Given I send a GET request to "users/1"
+        Given I send a GET request to "users/galinha"
         Then the response should be in JSON
-        And print last JSON response
-        And print last response
+        And the JSON node "user.username" should be equal to "galinha"

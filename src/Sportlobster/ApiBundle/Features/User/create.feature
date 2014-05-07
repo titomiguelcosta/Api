@@ -8,5 +8,3 @@ Feature:
             | key           | value         |
             | username      | galinha       |
         Then the response should be in JSON
-        And print last JSON response
-        And print last response

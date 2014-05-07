@@ -40,4 +40,22 @@ class UserManager
         return $userEntity;
     }
 
+    public function getByUsername($username)
+    {
+        $key = $this->cacheConfiguration->getUserKey($username);
+        $userEntity = $this->cacheProvider->fetch($key);
+
+        if (false === $userEntity) {
+            $userEntity = $this->userEntityRepository->findOneByUsername($username);
+            
+            if (false === ($userEntity instanceof UserEntity)) {
+                throw new NotFoundHttpException('User not found.');
+            }
+            
+            $this->cacheProvider->save($key, $userEntity, $this->cacheConfiguration->getUserLifetime());
+        }
+
+        return $userEntity;
+    }
+
 }

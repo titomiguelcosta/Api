@@ -2,19 +2,9 @@
 
 namespace Sportlobster\ApiBundle\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
-/**
- * @JMS\ExclusionPolicy("all")
- */
 class User
 {
 
-    /**
-     * @JMS\Expose()
-     * @JMS\Type("string")
-     * @JMS\Groups({"User", "Admin"})
-     */
     protected $username;
 
     public function getUsername()
@@ -27,13 +17,6 @@ class User
         $this->username = $username;
     }
 
-    /** 
-     * @JMS\Expose()
-     * @JMS\Accessor(getter="getFullName")
-     * @JMS\Type("string")
-     * @JMS\SerializedName("full_name")
-     * @JMS\Groups({"Admin"})
-     */
     protected $firstName;
 
     public function getFirstName()
