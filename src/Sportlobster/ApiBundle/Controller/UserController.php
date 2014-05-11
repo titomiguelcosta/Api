@@ -2,8 +2,8 @@
 
 namespace Sportlobster\ApiBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         $userEntityRepository = $this->get('sportlobster.api.entity.repository.user');
         $userEntity = $userEntityRepository->createFromUserCreateRequest($userCreateRequest);
-        
+
         $viewResponse->setData(array('user' => $userEntity));
         $viewResponse->setHeader('Location', $this->generateUrl('users.get', array('username' => $userEntity->getUsername()), true));
 

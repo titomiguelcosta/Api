@@ -18,5 +18,5 @@ class User extends UserModel
     {
         $this->id = $id;
     }
-
+    
 }

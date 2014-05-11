@@ -1,0 +1,69 @@
+Sportlobster\ApiBundle\Entity\News:
+    type: entity
+    repositoryClass: Sportlobster\ApiBundle\Entity\NewsRepository
+    table: news
+    gedmo:
+        uploadable:
+            allowOverwrite: true
+            appendNumber: false
+            path: 'uploads/news'
+            pathMethod: getPhotoPath
+            filenameGenerator: SHA1
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 255
+        slug:
+            type: string
+            length: 255
+            gedmo:
+                slug:
+                    unique: true
+                    separator: '-'
+                    style: default
+                    fields:
+                        - title
+        content:
+            type: text
+        points:
+            type: integer
+            options:
+                default: 0
+            nullable: true
+        photoPath:
+            type: string
+            nullable: true
+            gedmo:
+                - uploadableFilePath
+        photoName:
+            type: string
+            nullable: true
+            gedmo:
+                - uploadableFileName
+        photoMimeType:
+            type: string
+            nullable: true
+            gedmo:
+                - uploadableFileMimeType
+        photoSize:
+            type: decimal
+            nullable: true
+            gedmo:
+                - uploadableFileSize
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    indexes:
+        slug_idx:
+            columns: slug

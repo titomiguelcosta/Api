@@ -8,3 +8,5 @@ Feature:
             | key           | value         |
             | username      | galinha       |
         Then the response should be in JSON
+        And the response status code should be 201
+        And the JSON node "user.username" should be equal to "galinha"

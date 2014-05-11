@@ -1,7 +1,7 @@
 Sportlobster\ApiBundle\Entity\User:
     type: entity
     repositoryClass: Sportlobster\ApiBundle\Entity\UserRepository
-    table: sl_user
+    table: user
     id:
         id:
             type: integer
