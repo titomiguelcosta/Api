@@ -1,0 +1,7 @@
+default[:cookbook][:user] = "sportlobster"
+default[:cookbook][:group] = "sportlobster"
+default[:apache][:dir] = "/etc/apache2"
+default[:apache][:user] = "www-data"
+default[:apache][:group] = "www-data"
+default[:php][:dir] = "/etc/php5"
+default[:api][:dir] = "/projects/api"

@@ -1,0 +1,1 @@
+execute "apt-get -y install memcached"

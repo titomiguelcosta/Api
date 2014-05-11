@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.require_version ">= 1.5.0"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.hostname = "cookbook-berkshelf"
+  config.omnibus.chef_version = :latest
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.network :private_network, bridge: "wlan0", ip: "33.33.33.100"
+  config.vm.network :public_network, bridge: "wlan0"
+  config.vm.synced_folder "../", "/projects/api", type: "nfs"
+  config.berkshelf.enabled = true
+
+  config.vm.provision :chef_solo do |chef|
+    chef.run_list = [
+        "recipe[cookbook::default]"
+    ]
+    
+    chef.custom_config_path = "Vagrantfile.chef"
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+    v.name = "sportlobster_api"
+    v.memory = 1024
+    v.cpus = 2
+  end
+end
