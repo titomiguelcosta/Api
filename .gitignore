@@ -9,3 +9,6 @@
 /vendor/
 /bin/
 /composer.phar
+/vagrant/.vagrant
+/vagrant/Bersfile.lock
+/vagrant/Gemfile.lock

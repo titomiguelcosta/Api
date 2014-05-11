@@ -8,7 +8,7 @@ default:
                 env: test
                 debug: true
         Behat\MinkExtension\Extension:
-            base_url: 'http://test.api.sportlobster.local'
+            base_url: 'http://api.sportlobster.test'
             default_session: goutte
             goutte: ~
         Sanpi\Behatch\Extension: ~
