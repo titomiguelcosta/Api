@@ -12,3 +12,4 @@
 /vagrant/.vagrant
 /vagrant/Bersfile.lock
 /vagrant/Gemfile.lock
+/nbproject

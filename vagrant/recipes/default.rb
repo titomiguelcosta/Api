@@ -10,7 +10,6 @@
 # make sure no questions are asked during the instalation process
 ENV["DEBIAN_FRONTEND"] = "noninteractive"
 
-include_recipe "cookbook::user"
 include_recipe "build-essential"
 include_recipe "apt"
 include_recipe "cookbook::php"
