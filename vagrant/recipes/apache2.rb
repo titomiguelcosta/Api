@@ -1,5 +1,6 @@
 execute "apt-get -y install apache2"
 execute "apt-get -y install libapache2-mod-php5"
+execute "apt-get -y install apache2-mpm-itk"
 
 template "#{node[:apache][:dir]}/sites-available/sportlobster.conf" do
   source "apache2/sportlobster.conf.erb"

@@ -1,13 +1,13 @@
 default:
     extensions:
-        Behat\Symfony2Extension\Extension:
+        Behat\Symfony2Extension:
             kernel:
                 bootstrap: app/autoload.php
                 path: app/AppKernel.php
                 class: AppKernel
                 env: test
                 debug: true
-        Behat\MinkExtension\Extension:
+        Behat\MinkExtension:
             base_url: 'http://api.sportlobster.test'
             default_session: goutte
             goutte: ~

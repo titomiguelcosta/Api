@@ -2922,12 +2922,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/MinkZombieDriver.git",
-                "reference": "b6884547e2c57286a7d55eea14aac294e5cfc34a"
+                "reference": "d4f6de66f4c385ca12b4fc7a054123f57a97e39b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkZombieDriver/zipball/b6884547e2c57286a7d55eea14aac294e5cfc34a",
-                "reference": "b6884547e2c57286a7d55eea14aac294e5cfc34a",
+                "url": "https://api.github.com/repos/Behat/MinkZombieDriver/zipball/d4f6de66f4c385ca12b4fc7a054123f57a97e39b",
+                "reference": "d4f6de66f4c385ca12b4fc7a054123f57a97e39b",
                 "shasum": ""
             },
             "require": {
@@ -2972,7 +2972,7 @@
                 "testing",
                 "zombie"
             ],
-            "time": "2014-05-10 14:26:35"
+            "time": "2014-05-11 20:28:59"
         },
         {
             "name": "behat/sahi-client",

@@ -20,6 +20,5 @@ include_recipe "cookbook::memcached"
 
 # install other utils
 execute "apt-get -y install git"
-execute "apt-get -y install acl"
 
 include_recipe "cookbook::project"
