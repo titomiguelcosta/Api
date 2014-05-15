@@ -9,8 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "sportlobster"
   config.omnibus.chef_version = :latest
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network :private_network, bridge: "wlan0", ip: "33.33.33.100"
-  config.vm.network :public_network, bridge: "wlan0"
+  config.vm.network :private_network, ip: "33.33.33.100"
+  config.vm.network :public_network
   config.vm.synced_folder "../", "/projects/api", type: "nfs"
   config.berkshelf.enabled = true
 
@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider "virtualbox" do |v|
-    v.gui = false
+    v.gui = true
     v.name = "sportlobster_api"
     v.memory = 1024
     v.cpus = 2
