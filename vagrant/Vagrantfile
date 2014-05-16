@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider "virtualbox" do |v|
-    v.gui = true
+    v.gui = false
     v.name = "sportlobster_api"
     v.memory = 1024
     v.cpus = 2

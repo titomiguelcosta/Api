@@ -10,7 +10,7 @@ Virtual Machine
 
 * Make sure you have installed the following
 
-    * VirtualBox 4.2.20 [1]
+    * VirtualBox 4.3.6 [1]
     * Vagrant 1.6.1 [2]
     * Berkshelf 3.0 and the Vagrant Berkshelf plugin 2.0.1 [3]
     * Vagrant Omnibus plugin 1.4.1 [4]
@@ -30,21 +30,13 @@ Virtual Machine
 
     $ cd /projects/api
 
-* Create the database and run the migrations and fixtures
-
-    $ php app/console doctrine:database:create 
-
-    $ php app/console doctrine:migrations:migrate 
-
-    $ php app/console doctrine:fixtures:load
-
 * Make sure all the tests are green
 
     $ ./bin/phpunit -c app
 
     $ ./bin/behat
 
-* Configure your local /etc/hosts to map the IP 33.33.33.100 to api.sportlobster.dev
+* Configure your local machine /etc/hosts to map the IP address 33.33.33.100 to api.sportlobster.dev
 
 * On your local machine's browser, visit http://api.sportlobster.dev/api/doc
 
