@@ -11,6 +11,7 @@ default:
             base_url: 'http://api.sportlobster.test'
             default_session: goutte
             goutte: ~
+            files_path: data/fixtures
         Sanpi\Behatch\Extension: ~
     suites:
         default:

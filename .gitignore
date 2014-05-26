@@ -6,6 +6,7 @@
 /web/uploads/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
+!app/uploads/.gitkeep
 /build/
 /vendor/
 /bin/

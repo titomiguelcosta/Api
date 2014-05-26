@@ -4,8 +4,6 @@ namespace Sportlobster\ApiBundle\Manager;
 
 use Sportlobster\ApiBundle\Entity\NewsRepository as NewsEntityRepository;
 use Doctrine\Common\Cache\Cache as CacheInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Sportlobster\ApiBundle\Entity\News as NewsEntity;
 use Sportlobster\ApiBundle\Cache\NewsCacheConfiguration;
 use Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager;
 use Sportlobster\ApiBundle\Request\News\NewsCreateRequest;
