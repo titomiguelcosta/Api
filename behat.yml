@@ -8,7 +8,7 @@ default:
                 env: test
                 debug: true
         Behat\MinkExtension:
-            base_url: 'http://api.sportlobster.test'
+            base_url: 'http://api.test'
             default_session: goutte
             goutte: ~
             files_path: data/fixtures

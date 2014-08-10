@@ -10,3 +10,13 @@ NelmioApiDocBundle:
     prefix:   /api/doc
     defaults:
         _format: html
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+    defaults:
+        _format: html
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+    defaults:
+        _format: html

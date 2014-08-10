@@ -1,6 +1,6 @@
 name             "cookbook"
 maintainer       "Tito Miguel Costa"
-maintainer_email "tito@sportlobster.com"
+maintainer_email "api@titomiguelcosta.com"
 license          "All rights reserved"
 description      "Installs/Configures cookbook"
 long_description "Installs/Configures cookbook"

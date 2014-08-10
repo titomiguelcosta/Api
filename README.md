@@ -1,8 +1,7 @@
-Sportlobster API v3
-===================
+API Prototype
+=============
 
-This is the repository for the version 3 of the Sportlobster API.
-The API is built on top of the Symfony2 framework and requires MySQL, MongoDB and Memcached.
+This project is an API prototype powered by the Symfony2 framework and requires MySQL, MongoDB and Memcached.
 To ease the environment setup, the configuration of a Vagrant virtual machine makes part of the project.
 
 Virtual Machine
@@ -36,9 +35,9 @@ Virtual Machine
 
     $ ./bin/behat
 
-* Configure your local machine /etc/hosts to map the IP address 33.33.33.100 to api.sportlobster.dev
+* Configure your local machine /etc/hosts to map the IP address 33.33.33.100 to api.dev
 
-* On your local machine's browser, visit http://api.sportlobster.dev/api/doc
+* On your local machine's browser, visit http://api.dev/api/doc
 
 [1] https://www.virtualbox.org/wiki/Downloads
 

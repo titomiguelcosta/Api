@@ -2,20 +2,10 @@
 
 namespace Sportlobster\ApiBundle\Model;
 
-class User
+use FOS\UserBundle\Model\User as BaseUser;
+
+class User extends BaseUser
 {
-
-    protected $username;
-
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
 
     protected $firstName;
 
