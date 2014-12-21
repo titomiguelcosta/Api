@@ -21,6 +21,7 @@ set :use_sudo, false
 set :shared_files, ["app/config/parameters.yml"]
 set :shared_children, [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :use_composer, true
+set :composer_options,  "--no-dev --prefer-dist --optimize-autoloader --no-progress --no-interaction"
 set :update_vendors, true
 set :vendors_mode, :install
 set :copy_vendors, true
