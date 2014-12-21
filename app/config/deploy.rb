@@ -23,6 +23,6 @@ set :shared_children, [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :use_composer, true
 set :composer_options,  "--no-dev --verbose --prefer-dist --optimize-autoloader --no-progress --no-interaction"
 set :update_vendors, true
-set :vendors_mode, :install
+set :vendors_mode, "install"
 set :copy_vendors, true
 after "deploy", "deploy:cleanup"
