@@ -16,6 +16,7 @@ set  :keep_releases,  3
 # Be more verbose by uncommenting the following line
 # logger.level = Logger::MAX_LEVEL
 
+set :user, "ubuntu"
 set :use_sudo, false
 set :shared_files, ["app/config/parameters.yml"]
 set :shared_children, [app_path + "/logs", web_path + "/uploads", "vendor"]
