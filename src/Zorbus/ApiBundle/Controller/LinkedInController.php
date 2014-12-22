@@ -5,10 +5,12 @@ namespace Zorbus\ApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class LinkedInController extends Controller
 {
@@ -23,9 +25,9 @@ class LinkedInController extends Controller
 
         $url = sprintf('https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%s&scope=%s&state=%s&redirect_uri=%s',
             $this->container->getParameter('linkedin_key'),
-            urlencode('r_ fullprofile r_network r_emailaddress r_contactinfo'),
+            urlencode('r_fullprofile r_network r_emailaddress r_contactinfo'),
             $state,
-            $this->generateUrl('linkedin.authenticate', [], true)
+            urlencode($this->generateUrl('linkedin.authenticate', [], true))
         );
 
         return new RedirectResponse($url);
@@ -40,10 +42,10 @@ class LinkedInController extends Controller
         $code = $request->query->get('code');
         $state = $request->query->get('state');
 
-        if ($state !== $request->getSession()->get('state')) {
+        if ($state !== $request->getSession()->get('linkedin_state')) {
             throw new UnauthorizedHttpException(sprintf('State %s does not match the saved state %s.', $state, $request->getSession()->get('state')));
         } else {
-            $request->getSession()->remove('state');
+            $request->getSession()->remove('linkedin_state');
         }
 
         $url = sprintf('https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=%s&redirect_uri=%s&client_id=%s&client_secret=%s',
@@ -54,12 +56,13 @@ class LinkedInController extends Controller
         );
 
         $client = new Client();
-        $response = $client->post($url);
+        try {
+            $response = $client->post($url);
+            $body = $response->getBody()->getContents();
 
-        if (200 === $response->getStatusCode()) {
-            $body = $response->getBody();
-
-            return new Response($body);
+            return new JsonResponse(json_decode($body));
+        } catch (ClientException $e) {
+            return new JsonResponse([$e->getResponse()->getBody()->getContents(), $url], 400);
         }
     }
 }
