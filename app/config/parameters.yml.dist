@@ -14,3 +14,6 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+    github_token:         12345678901234567890
+    github_password:      ~
+    github_auth_http:     http_token
