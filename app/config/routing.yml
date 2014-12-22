@@ -1,5 +1,5 @@
-sportlobster_api:
-    resource: "@SportlobsterApiBundle/Controller/"
+zorbus_api:
+    resource: "@ZorbusApiBundle/Controller/"
     type:     annotation
     prefix:   /
     defaults:

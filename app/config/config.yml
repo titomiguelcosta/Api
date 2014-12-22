@@ -91,7 +91,7 @@ fos_rest:
         failed_validation: HTTP_BAD_REQUEST
     
 nelmio_api_doc:
-    name: Sportlobster API
+    name: Zorbus API
     sandbox:
         enabled: true
         accept_type: application/json
@@ -111,14 +111,14 @@ stof_doctrine_extensions:
 
 fos_oauth_server:
     db_driver: orm
-    client_class: Sportlobster\ApiBundle\Entity\OAuthClient
-    access_token_class: Sportlobster\ApiBundle\Entity\OAuthAccessToken
-    refresh_token_class: Sportlobster\ApiBundle\Entity\OAuthRefreshToken
-    auth_code_class: Sportlobster\ApiBundle\Entity\OAuthAuthCode
+    client_class: Zorbus\ApiBundle\Entity\OAuthClient
+    access_token_class: Zorbus\ApiBundle\Entity\OAuthAccessToken
+    refresh_token_class: Zorbus\ApiBundle\Entity\OAuthRefreshToken
+    auth_code_class: Zorbus\ApiBundle\Entity\OAuthAuthCode
     service:
         user_provider: fos_user.user_manager
 
 fos_user:
     db_driver: orm
     firewall_name: oauth_authorize
-    user_class: Sportlobster\ApiBundle\Entity\User
+    user_class: Zorbus\ApiBundle\Entity\User

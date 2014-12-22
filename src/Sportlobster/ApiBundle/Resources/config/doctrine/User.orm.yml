@@ -1,8 +1,0 @@
-Sportlobster\ApiBundle\Entity\User:
-    type: entity
-    repositoryClass: Sportlobster\ApiBundle\Entity\UserRepository
-    table: user
-    id:
-        id:
-            type: integer
-            generator: { strategy: AUTO }

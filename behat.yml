@@ -16,9 +16,9 @@ default:
     suites:
         default:
             type: symfony_bundle
-            bundle: SportlobsterApiBundle
+            bundle: ZorbusApiBundle
             contexts:
-                - Sportlobster\ApiBundle\Features\Context\FeatureContext
+                - Zorbus\ApiBundle\Features\Context\FeatureContext
                 - behatch:browser
                 - behatch:debug
                 - behatch:system

@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="Zorbus.api.manager.user.class">Zorbus\ApiBundle\Manager\UserManager</parameter>
+        <parameter key="Zorbus.api.manager.news.class">Zorbus\ApiBundle\Manager\NewsManager</parameter>
+        <parameter key="Zorbus.api.doctrine.cache.array.class">Doctrine\Common\Cache\ArrayCache</parameter>
+        <parameter key="Zorbus.api.doctrine.cache.memcached.class">Doctrine\Common\Cache\MemcachedCache</parameter>
+        <parameter key="Zorbus.api.user.cache.configuration.class">Zorbus\ApiBundle\Cache\UserCacheConfiguration</parameter>
+        <parameter key="Zorbus.api.news.cache.configuration.class">Zorbus\ApiBundle\Cache\NewsCacheConfiguration</parameter>
+        <parameter key="Zorbus.api.entity.repository.user.class">Zorbus\ApiBundle\Entity\UserRepository</parameter>
+        <parameter key="Zorbus.api.entity.repository.news.class">Zorbus\ApiBundle\Entity\NewsRepository</parameter>
+        <parameter key="Zorbus.api.memcached.class">Memcached</parameter>
+        <parameter key="Zorbus.api.memcached.host">localhost</parameter>
+        <parameter key="Zorbus.api.memcached.port">11211</parameter>
+        <parameter key="Zorbus.api.doctrine.table_prefix.class">Zorbus\ApiBundle\EventSubscriber\TablePrefixSubscriber</parameter>
+    </parameters>
+    
+    <services>
+        <service id="Zorbus.api.doctrine.table_prefix" class="%Zorbus.api.doctrine.table_prefix.class%">
+            <argument>%database_table_prefix%</argument>
+            <tag name="doctrine.event_subscriber"></tag>
+        </service>
+        
+        <service id="Zorbus.api.memcached" class="%Zorbus.api.memcached.class%">
+            <call method="addServer">
+                <argument>%Zorbus.api.memcached.host%</argument>
+                <argument>%Zorbus.api.memcached.port%</argument>
+            </call>
+        </service>
+        <service id="Zorbus.api.doctrine.cache.memcached" class="%Zorbus.api.doctrine.cache.memcached.class%">
+            <call method="setMemcached">
+                <argument type="service" id="Zorbus.api.memcached" />
+            </call>
+        </service>
+        <service id="Zorbus.api.doctrine.cache.array" class="%Zorbus.api.doctrine.cache.array.class%">
+        </service>
+        
+        <service id="Zorbus.api.user.cache.configuration" class="%Zorbus.api.user.cache.configuration.class%">
+        </service>
+        <service id="Zorbus.api.news.cache.configuration" class="%Zorbus.api.news.cache.configuration.class%">
+        </service>
+        
+        <service id="Zorbus.api.entity.repository.user" class="%Zorbus.api.entity.repository.user.class%" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+            <argument>ZorbusApiBundle:User</argument>
+        </service>
+        <service id="Zorbus.api.entity.repository.news" class="%Zorbus.api.entity.repository.news.class%" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+            <argument>ZorbusApiBundle:News</argument>
+        </service>
+        
+        <service id="Zorbus.api.manager.user" class="%Zorbus.api.manager.user.class%">
+            <argument type="service" id="Zorbus.api.entity.repository.user" />
+            <argument type="service" id="Zorbus.api.doctrine.cache.memcached" />
+            <argument type="service" id="Zorbus.api.user.cache.configuration" />
+        </service>
+        <service id="Zorbus.api.manager.news" class="%Zorbus.api.manager.news.class%">
+            <argument type="service" id="Zorbus.api.entity.repository.news" />
+            <argument type="service" id="Zorbus.api.doctrine.cache.memcached" />
+            <argument type="service" id="Zorbus.api.news.cache.configuration" />
+            <argument type="service" id="stof_doctrine_extensions.uploadable.manager" />
+        </service>
+    </services>
+</container>

@@ -1,6 +1,6 @@
 parameters:
-    database_name: sportlobster_api_test
-    sportlobster.api.memcached.class: Sportlobster\ApiBundle\Mock\Memcached
+    database_name: zorbus_api_test
+    sportlobster.api.memcached.class: Zorbus\ApiBundle\Mock\Memcached
     
 imports:
     - { resource: config_dev.yml }

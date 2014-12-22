@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Tmc\BadRequestBundle\TmcBadRequestBundle(),
-            new Sportlobster\ApiBundle\SportlobsterApiBundle(),
+            new Zorbus\ApiBundle\ZorbusApiBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),

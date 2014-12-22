@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 $loader = require_once __DIR__.'/../bootstrap.php.cache';
 
-$apcLoader = new ApcClassLoader('sportlobster.api', $loader);
+$apcLoader = new ApcClassLoader('zorbus.api', $loader);
 $loader->unregister();
 $apcLoader->register(true);
 
