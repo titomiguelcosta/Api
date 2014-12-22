@@ -21,7 +21,7 @@ class LinkedInController extends Controller
     public function authorizeAction(Request $request)
     {
         $state = 'RfDeSAddddddE2' . rand(1, 5000);
-        $request->getSession()->set('linkedin_code', $state);
+        $request->getSession()->set('linkedin_state', $state);
 
         $url = sprintf('https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%s&scope=%s&state=%s&redirect_uri=%s',
             $this->container->getParameter('linkedin_key'),
@@ -43,7 +43,9 @@ class LinkedInController extends Controller
         $state = $request->query->get('state');
 
         if ($state !== $request->getSession()->get('linkedin_state')) {
-            throw new UnauthorizedHttpException(sprintf('State %s does not match the saved state %s.', $state, $request->getSession()->get('state')));
+            $message = sprintf('State %s does not match the saved state %s.', $state, $request->getSession()->get('state'));
+            $this->get('logger')->error($message);
+            throw new UnauthorizedHttpException($message);
         } else {
             $request->getSession()->remove('linkedin_state');
         }
