@@ -33,7 +33,8 @@
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "friendsofsymfony/oauth-server-bundle": "~1.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "knplabs/github-api": "~1.4"
+        "knplabs/github-api": "~1.4",
+        "guzzlehttp/guzzle": "~5.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
