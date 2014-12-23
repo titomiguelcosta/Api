@@ -3,29 +3,34 @@
 namespace Zorbus\LinkedIn\Model;
 
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Expose;
 
 class Profile
 {
 
     /**
      * @Type("string")
+     * @Expose()
      */
     protected $firstName;
 
     /**
      * @Type("string")
+     * @Expose()
      */
     protected $lastName;
 
     /**
      * @Type("string")
+     * @Expose()
      */
     protected $headline;
 
     /**
-     * @Type("string")
+     * @Type("array")
+     * @Expose()
      */
-    protected $url;
+    protected $siteStandardProfileRequest;
 
     /**
      * @return mixed
@@ -56,7 +61,7 @@ class Profile
      */
     public function getUrl()
     {
-        return $this->url;
+        return $this->siteStandardProfileRequest['url'];
     }
 
 

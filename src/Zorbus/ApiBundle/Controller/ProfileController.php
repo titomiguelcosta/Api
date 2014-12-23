@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
         $manager = $this->get('zorbus_linkedin.manager');
 
-        return new Response($manager->getProfile());
+        return new Response(print_r($manager->getProfile(), true));
     }
 }
 
