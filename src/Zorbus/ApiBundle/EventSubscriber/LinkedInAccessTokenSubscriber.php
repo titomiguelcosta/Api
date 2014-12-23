@@ -19,7 +19,9 @@ class LinkedInAccessTokenSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ['zorbus_linkedin.access_token', ['onLinkedInAccessToken']]
+            'zorbus_linkedin.access_token' => [
+                ['onLinkedInAccessToken']
+            ]
         ];
     }
 

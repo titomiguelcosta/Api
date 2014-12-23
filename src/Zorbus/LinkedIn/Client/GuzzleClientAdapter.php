@@ -28,10 +28,7 @@ class GuzzleClientAdapter implements ClientInterface
                 $this->headers['x-li-format'] = 'json';
                 break;
             case 'xml':
-                // xml is the default response format, so no need to set the header
-                if (array_key_exists('x-li-format', self::$headers)) {
-                    unset($this->headers['x-li-format']);
-                }
+                $this->headers['x-li-format'] = 'xml';
                 break;
             default:
                 throw new \InvalidArgumentException('Invalid response format.');

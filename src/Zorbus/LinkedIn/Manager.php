@@ -5,6 +5,7 @@ namespace Zorbus\LinkedIn;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Response;
 use Zorbus\LinkedIn\Client\ClientInterface;
+use Zorbus\LinkedIn\Serializer\SerializerInterface;
 use Zorbus\LinkedIn\Storage\StorageInterface;
 
 class Manager
@@ -16,11 +17,13 @@ class Manager
 
     private $client;
     private $storage;
+    private $serializer;
 
-    public function __construct(ClientInterface $client, StorageInterface $storage)
+    public function __construct(ClientInterface $client, StorageInterface $storage, SerializerInterface $serializer = null)
     {
         $this->client = $client;
         $this->storage = $storage;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -106,6 +109,12 @@ class Manager
 
         $response = $this->client->call($uri, $method, $parameters, $headers);
 
-        return $response;
+        $profile = $response->getBody()->getContents();
+
+        if ($this->serializer instanceof SerializerInterface) {
+            $profile = $this->serializer->deserialize($response->getBody()->getContents(), 'Zorbus\LinkedIn\Model\Profile', 'json');
+        }
+
+        return $profile;
     }
 }

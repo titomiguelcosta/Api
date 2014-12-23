@@ -14,8 +14,13 @@ services:
         class: Zorbus\LinkedIn\Storage\SymfonySessionAdapter
         arguments:
             - @session
+    zorbus_linkedin.serializer:
+        class: Zorbus\LinkedIn\Serializer\JmsSerializer
+        arguments:
+            - @jms_serializer.serializer
     zorbus_linkedin.manager:
         class: Zorbus\LinkedIn\Manager
         arguments:
             - @zorbus_linkedin.client
             - @zorbus_linkedin.storage
+            - @zorbus_linkedin.serializer

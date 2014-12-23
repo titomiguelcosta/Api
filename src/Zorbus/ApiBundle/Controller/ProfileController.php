@@ -16,34 +16,23 @@ class ProfileController extends Controller
      * @Method({"GET"})
      * @return array
      */
-    public function repositoriesAction()
+    public function profileAction()
     {
-        $client = $this->get('zorbus_linkedin.client');
-        $manager = $this->get('zorbus_linkedin.manager');
         $session = $this->get('session');
         $linkedInAccessToken = $session->get('linkedin.access_token');
 
         if (null === $linkedInAccessToken){
-            return new RedirectResponse($this->generateUrl('zorbus_linkedin.authenticate', [], true));
+            return new RedirectResponse($this->generateUrl('zorbus_linkedin.authorize', [], true));
         }
 
+        $client = $this->get('zorbus_linkedin.client');
         $client->setAuthorization($linkedInAccessToken);
         $client->setBaseUrl('https://api.linkedin.com/v1');
+        $client->setResponseFormat('json');
+
+        $manager = $this->get('zorbus_linkedin.manager');
 
         return new Response($manager->getProfile());
-    }
-
-    /**
-     * @Route("/github/user", name="github.user")
-     * @Method({"GET"})
-     * @return array
-     */
-    public function userAction()
-    {
-        /** @var \Github\Client $client */
-        $client = $this->get('github.client');
-
-        return $client->currentUser()->show();
     }
 }
 
