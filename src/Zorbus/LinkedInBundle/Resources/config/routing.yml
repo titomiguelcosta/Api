@@ -1,7 +1,7 @@
-zorbus_linkedin_authorize:
+zorbus_linkedin.authorize:
     path:     /authorize
     defaults: { _controller: ZorbusLinkedInBundle:LinkedIn:authorize }
 
-zorbus_linkedin_authenticate:
+zorbus_linkedin.authenticate:
     path:     /authenticate
     defaults: { _controller: ZorbusLinkedInBundle:LinkedIn:authenticate }

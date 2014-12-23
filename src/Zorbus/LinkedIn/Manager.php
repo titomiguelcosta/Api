@@ -2,6 +2,8 @@
 
 namespace Zorbus\LinkedIn;
 
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Message\Response;
 use Zorbus\LinkedIn\Client\ClientInterface;
 use Zorbus\LinkedIn\Storage\StorageInterface;
 
@@ -52,7 +54,7 @@ class Manager
      * @param string $secret string the application secret registered on LinkendIn
      * @param null $key the application key registered on LinkedIn
      * @param null $redirectUrl
-     * @return mixed
+     * @return array Returns array with keys access_token and expires_in
      */
     public function authenticate($code, $state, $secret, $key = null, $redirectUrl = null)
     {
@@ -63,17 +65,32 @@ class Manager
             $this->storage->remove(self::STATE_KEY);
         }
 
-        $url = sprintf(
-            'https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=%s&redirect_uri=%s&client_id=%s&client_secret=%s',
-            $code,
-            $secret,
-            urlencode($redirectUrl),
-            $key
-        );
+        $url = 'https://www.linkedin.com/uas/oauth2/accessToken';
+        $parameters = [
+            'grant_type' => 'authorization_code',
+            'code' => $code,
+            'redirect_uri' => $redirectUrl,
+            'client_id' => $key,
+            'client_secret' => $secret
+        ];
 
-        $response = $this->client->call($url, ClientInterface::METHOD_POST);
+        try {
+            $response = $this->client->call($url, ClientInterface::METHOD_POST, $parameters);
 
-        return $response;
+            if ($response instanceof Response) {
+                $data = json_decode($response->getBody()->getContents(), true);
+
+                if (!array_key_exists('access_token', $data) || !array_key_exists('expires_in', $data)) {
+                    throw new \LogicException('Missing at least one of the keys: access_token or expires_in', 500);
+                }
+            } else {
+                throw new \LogicException('Unexpected response', 500);
+            }
+        } catch (ClientException $e) {
+            throw new \RuntimeException('Invalid response', 500, $e);
+        }
+
+        return $data;
     }
 
     public function getProfile(array $fields = null)
