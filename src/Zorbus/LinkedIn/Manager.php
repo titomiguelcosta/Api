@@ -107,12 +107,13 @@ class Manager
         $parameters = [];
         $headers = [];
 
+        /** @var \GuzzleHttp\Message\Response $response */
         $response = $this->client->call($uri, $method, $parameters, $headers);
 
-        $profile = $response->getBody()->getContents();
+        $profile = (string) $response->getBody()->getContents();
 
         if ($this->serializer instanceof SerializerInterface) {
-            $profile = $this->serializer->deserialize($response->getBody()->getContents(), 'Zorbus\LinkedIn\Model\Profile', 'json');
+            $profile = $this->serializer->deserialize($profile, 'Zorbus\LinkedIn\Model\Profile', 'json');
         }
 
         return $profile;

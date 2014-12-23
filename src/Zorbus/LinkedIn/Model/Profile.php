@@ -4,31 +4,39 @@ namespace Zorbus\LinkedIn\Model;
 
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\SerializedName;
 
+/**
+ * @ExclusionPolicy("all")
+ */
 class Profile
 {
-
     /**
      * @Type("string")
      * @Expose()
+     * @SerializedName("firstName")
      */
     protected $firstName;
 
     /**
      * @Type("string")
      * @Expose()
+     * @SerializedName("lastName")
      */
     protected $lastName;
 
     /**
      * @Type("string")
      * @Expose()
+     * @SerializedName("headline")
      */
     protected $headline;
 
     /**
      * @Type("array")
      * @Expose()
+     * @SerializedName("siteStandardProfileRequest")
      */
     protected $siteStandardProfileRequest;
 
@@ -63,6 +71,4 @@ class Profile
     {
         return $this->siteStandardProfileRequest['url'];
     }
-
-
 }
