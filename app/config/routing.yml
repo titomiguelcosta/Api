@@ -1,3 +1,7 @@
+zorbus_linkedin:
+    resource: "@ZorbusLinkedInBundle/Resources/config/routing.yml"
+    prefix:   /linkedin
+
 zorbus_api:
     resource: "@ZorbusApiBundle/Controller/"
     type:     annotation

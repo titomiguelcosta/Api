@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Zorbus\LinkedInBundle\ZorbusLinkedInBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

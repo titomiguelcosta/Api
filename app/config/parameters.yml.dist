@@ -17,5 +17,6 @@ parameters:
     github_token:      12345678901234567890
     github_password:   ~
     github_auth_http:  http_token
-    linkedin_key:      LinkedInKey
-    linkedin_secret:   LinkedInSecret
+    zorbus_linkedin_key:      LinkedInKey
+    zorbus_linkedin_secret:   LinkedInSecret
+    zorbus_linkedin_scope:    [r_basicprofile, r_fullprofile, r_contactinfo, r_network, r_emailaddress]

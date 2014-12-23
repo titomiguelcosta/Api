@@ -1,0 +1,21 @@
+parameters:
+    zorbus_linkedin.key: ~
+    zorbus_linkedin.secret: ~
+    zorbus_linkedin.scope: []
+
+services:
+    zorbus_linkedin.guzzle.client:
+        class: GuzzleHttp\Client
+    zorbus_linkedin.client:
+        class: Zorbus\LinkedIn\Client\GuzzleAdapter
+        arguments:
+            - @zorbus_linkedin.guzzle.client
+    zorbus_linkedin.storage:
+        class: Zorbus\LinkedIn\Storage\SessionAdapter
+        arguments:
+            - @session
+    zorbus_linkedin.manager:
+        class: Zorbus\LinkedIn\Manager
+        arguments:
+            - @zorbus_linkedin.client
+            - @zorbus_linkedin.storage
