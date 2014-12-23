@@ -4,7 +4,7 @@ namespace Zorbus\LinkedIn\Storage;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class SessionAdapter implements StorageInterface
+class SymfonySessionAdapter implements StorageInterface
 {
     private $session;
 

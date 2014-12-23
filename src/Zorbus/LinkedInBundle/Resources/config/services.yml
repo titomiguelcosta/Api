@@ -7,11 +7,11 @@ services:
     zorbus_linkedin.guzzle.client:
         class: GuzzleHttp\Client
     zorbus_linkedin.client:
-        class: Zorbus\LinkedIn\Client\GuzzleAdapter
+        class: Zorbus\LinkedIn\Client\GuzzleClientAdapter
         arguments:
             - @zorbus_linkedin.guzzle.client
     zorbus_linkedin.storage:
-        class: Zorbus\LinkedIn\Storage\SessionAdapter
+        class: Zorbus\LinkedIn\Storage\SymfonySessionAdapter
         arguments:
             - @session
     zorbus_linkedin.manager:

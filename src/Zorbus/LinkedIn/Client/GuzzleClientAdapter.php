@@ -6,7 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Stream\Stream;
 
-class GuzzleAdapter implements ClientInterface
+class GuzzleClientAdapter implements ClientInterface
 {
     private $client;
     private $headers = [];
