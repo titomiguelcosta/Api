@@ -4,6 +4,28 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="curlopt_ssl_verifyhost" type="constant">CURLOPT_SSL_VERIFYHOST</parameter>
+        <parameter key="curlopt_ssl_verifypeer" type="constant">CURLOPT_SSL_VERIFYPEER</parameter>
+        <parameter key="twitter.config" type="collection">
+            <parameter key="access_token" type="collection">
+                <parameter key="token">%twitter_access_token%</parameter>
+                <parameter key="secret">%twitter_access_secret%</parameter>
+            </parameter>
+            <parameter key="oauth_options" type="collection">
+                <parameter key="consumerKey">%twitter_consumer_key%</parameter>
+                <parameter key="consumerSecret">%twitter_consumer_secret%</parameter>
+            </parameter>
+            <parameter key="http_client_options" type="collection">
+                <parameter key="adapter">Zend\Http\Client\Adapter\Curl</parameter>
+                <parameter key="curloptions" type="collection">
+                    <parameter key="%curlopt_ssl_verifyhost%">false</parameter>
+                    <parameter key="%curlopt_ssl_verifypeer%">false</parameter>
+                </parameter>
+            </parameter>
+        </parameter>
+    </parameters>
+
     <services>
         <service id="github.client" class="Github\Client">
             <call method="authenticate">
@@ -11,6 +33,9 @@
                 <argument>%github_password%</argument>
                 <argument>%github_auth_http%</argument>
             </call>
+        </service>
+        <service id="twitter.client" class="ZendService\Twitter\Twitter">
+            <argument>%twitter.config%</argument>
         </service>
     </services>
 

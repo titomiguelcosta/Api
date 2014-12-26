@@ -20,3 +20,8 @@ parameters:
     zorbus_linkedin.key:      LinkedInKey
     zorbus_linkedin.secret:   LinkedInSecret
     zorbus_linkedin.scope:    [r_basicprofile, r_fullprofile, r_contactinfo, r_network, r_emailaddress]
+    twitter_access_token: ~
+    twitter_access_secret: ~
+    twitter_consumer_key: ~
+    twitter_consumer_secret: ~
+
