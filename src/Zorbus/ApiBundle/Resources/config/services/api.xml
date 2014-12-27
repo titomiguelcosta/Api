@@ -37,6 +37,23 @@
         <service id="twitter.client" class="ZendService\Twitter\Twitter">
             <argument>%twitter.config%</argument>
         </service>
+        <service id="google.client" class="Google_Client">
+            <call method="setApplicationName">
+                <argument>%google_app_name%</argument>
+            </call>
+            <call method="setDeveloperKey">
+                <argument>%google_api_key%</argument>
+            </call>
+            <call method="setClientId">
+                <argument>%google_client_id%</argument>
+            </call>
+            <call method="setClientSecret">
+                <argument>%google_client_secret%</argument>
+            </call>
+        </service>
+        <service id="youtube.client" class="Google_Service_YouTube">
+            <argument id="google.client" type="service"></argument>
+        </service>
     </services>
 
 </container>

@@ -24,4 +24,7 @@ parameters:
     twitter_access_secret: ~
     twitter_consumer_key: ~
     twitter_consumer_secret: ~
-
+    google_client_id: ~
+    google_client_secret: ~
+    google_api_key: ~
+    google_app_name: ~
