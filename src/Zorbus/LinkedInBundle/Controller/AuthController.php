@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Zorbus\LinkedInBundle\Event\LinkedInTokenEvent;
 use DateTime;
 
-class LinkedInController extends Controller
+class AuthController extends Controller
 {
     public function authorizeAction(Request $request)
     {
@@ -41,31 +41,5 @@ class LinkedInController extends Controller
         $this->get('event_dispatcher')->dispatch('zorbus_linkedin.access_token', $event);
 
         return new Response('Retrieved access token. Ready to go.');
-    }
-
-    public function profileAction(Request $request)
-    {
-        /** @var \Zorbus\LinkedIn\Manager $manager */
-        $manager = $this->get('zorbus_linkedin.manager.api');
-
-        $profile = $manager->getProfile([
-            'id',
-            'first-name',
-            'last-name',
-            'headline',
-            'summary',
-            'specialties',
-            'positions',
-            'picture-url',
-            'public-profile-url',
-            'interests',
-            'languages',
-            'skills',
-            'certifications',
-            'educations',
-            'courses',
-        ]);
-
-        return $profile;
     }
 }

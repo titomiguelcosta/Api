@@ -113,6 +113,21 @@ class Manager
         return $this->execute($uri, $model);
     }
 
+    /**
+     * @param array $fields
+     * @return array
+     */
+    public function getCertifications(array $fields = null, $model = null)
+    {
+        $fields = null === $fields ?
+            '' :
+            ':(' . implode(',', $fields) . ')';
+
+        $uri = '/people/~:(certifications' . $fields.')';
+
+        return $this->execute($uri, $model);
+    }
+
     protected function execute($uri, $model = null, $method = ClientInterface::METHOD_GET, $parameters = [], $headers = [])
     {
         $data = null;

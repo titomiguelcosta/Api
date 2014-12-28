@@ -1,11 +1,15 @@
 zorbus_linkedin.authorize:
     path:     /authorize
-    defaults: { _controller: ZorbusLinkedInBundle:LinkedIn:authorize }
+    defaults: { _controller: ZorbusLinkedInBundle:Auth:authorize }
 
 zorbus_linkedin.authenticate:
     path:     /authenticate
-    defaults: { _controller: ZorbusLinkedInBundle:LinkedIn:authenticate }
+    defaults: { _controller: ZorbusLinkedInBundle:Auth:authenticate }
 
-zorbus_linkedin.profile:
+zorbus_linkedin.people.profile:
     path:     /profile
-    defaults: { _controller: ZorbusLinkedInBundle:LinkedIn:profile }
+    defaults: { _controller: ZorbusLinkedInBundle:People:profile }
+
+zorbus_linkedin.people.certifications:
+    path:     /profile/certifications
+    defaults: { _controller: ZorbusLinkedInBundle:People:certifications }
