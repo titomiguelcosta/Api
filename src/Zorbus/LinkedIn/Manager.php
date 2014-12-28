@@ -88,9 +88,6 @@ class Manager
                 if (!array_key_exists('access_token', $data) || !array_key_exists('expires_in', $data)) {
                     throw new \LogicException('Missing at least one of the keys: access_token or expires_in', 500);
                 }
-
-                $this->storage->store(self::ACCESS_TOKEN, $data['access_token']);
-                $this->storage->store(self::EXPIRES_IN, $data['expires_in']);
             } else {
                 throw new \LogicException('Unexpected response', 500);
             }
@@ -121,7 +118,13 @@ class Manager
         $data = null;
 
         if (!array_key_exists('Authorization', $headers)) {
-            $this->client->setAuthorization($this->storage->retrieve(self::ACCESS_TOKEN));
+            $accessToken = $this->storage->retrieve(self::ACCESS_TOKEN);
+
+            if (!$accessToken){
+                throw new \LogicException('No access token available for authentication');
+            }
+            
+            $this->client->setAuthorization($accessToken);
         }
 
         /** @var \GuzzleHttp\Message\Response $response */

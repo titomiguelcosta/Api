@@ -17,40 +17,53 @@ class EntityManagerStorage implements StorageInterface
 
     public function has($key)
     {
-        $object = $this->entityManager->getRepository('ZorbusLinkedInBundle:Storage')->findOneBy([
-            'field' => $key
-        ]);
+        $object = $this->getStorageByField($key);
 
         return $object instanceof Storage;
     }
 
     public function store($key, $value)
     {
-        $entry = new Storage();
-        $entry->setField($key);
-        $entry->setValue($value);
+        if ($this->has($key)) {
+            $this->remove($key);
+        }
 
-        $this->entityManager->persist($entry);
+        $storage = new Storage();
+        $storage->setField($key);
+        $storage->setValue($value);
+
+        $this->entityManager->persist($storage);
         $this->entityManager->flush();
     }
 
     public function retrieve($key)
+    {
+        $object = $this->getStorageByField($key);
+
+        if (false === $object instanceof Storage) {
+            throw new \LogicException('No storage entry for key ' . $key);
+        }
+
+        return $object->getValue();
+    }
+
+    public function remove($key)
+    {
+        $object = $this->getStorageByField($key);
+
+        if ($object instanceof Storage) {
+            $this->entityManager->remove($object);
+            $this->entityManager->flush();
+        }
+    }
+
+    private function getStorageByField($key)
     {
         $object = $this->entityManager->getRepository('ZorbusLinkedInBundle:Storage')->findOneBy([
             'field' => $key
         ]);
 
         return $object;
-    }
-
-    public function remove($key)
-    {
-        $object = $this->retrieve($key);
-
-        if ($object instanceof Storage) {
-            $this->entityManager->remove($object);
-            $this->entityManager->flush();
-        }
     }
 
 }

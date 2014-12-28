@@ -20,11 +20,6 @@
     </parameters>
     
     <services>
-        <service id="zorbus.api.linkedin.access_token" class="Zorbus\ApiBundle\EventSubscriber\LinkedInAccessTokenSubscriber">
-            <argument type="service" id="session"></argument>
-            <tag name="kernel.event_subscriber"></tag>
-        </service>
-
         <service id="Zorbus.api.doctrine.table_prefix" class="%Zorbus.api.doctrine.table_prefix.class%">
             <argument>%database_table_prefix%</argument>
             <tag name="doctrine.event_subscriber"></tag>

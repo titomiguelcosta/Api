@@ -24,3 +24,7 @@ services:
             - @zorbus_linkedin.client
             - @zorbus_linkedin.storage
             - @zorbus_linkedin.serializer
+    zorbus.api.linkedin.access_token:
+         class: Zorbus\ApiBundle\EventListener\LinkedInAccessTokenSubscriber
+         arguments:
+            - @zorbus_linkedin.storage
