@@ -13,7 +13,7 @@ class LinkedInTokenEvent extends Event
     public function __construct($accessToken, DateTime $expiredAt)
     {
         $this->accessToken = $accessToken;
-        $this->expiresAt;
+        $this->expiresAt = $expiredAt;
     }
 
     public function getAccessToken()
