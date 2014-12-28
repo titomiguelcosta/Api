@@ -42,4 +42,28 @@ class LinkedInController extends Controller
 
         return new Response('Retrieved access token. Ready to go.');
     }
+
+    public function profileAction(Request $request)
+    {
+        /** @var \Zorbus\LinkedIn\Manager $manager */
+        $manager = $this->get('zorbus_linkedin.manager');
+
+        $profile = $manager->getProfile([
+            'id',
+            'first-name',
+            'last-name',
+            'headline',
+            'summary',
+            'specialties',
+            'positions',
+            'picture-url',
+            'public-profile-url',
+            'interests',
+            'languages',
+            'skills',
+            'certifications',
+            'educations',
+            'courses',
+        ]);
+    }
 }

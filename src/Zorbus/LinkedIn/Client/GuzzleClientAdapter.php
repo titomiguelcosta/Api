@@ -25,10 +25,8 @@ class GuzzleClientAdapter implements ClientInterface
     {
         switch ($format) {
             case 'json':
-                $this->headers['x-li-format'] = 'json';
-                break;
             case 'xml':
-                $this->headers['x-li-format'] = 'xml';
+                $this->headers['x-li-format'] = $format;
                 break;
             default:
                 throw new \InvalidArgumentException('Invalid response format.');

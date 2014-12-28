@@ -28,3 +28,6 @@ parameters:
     google_client_secret: ~
     google_api_key: ~
     google_app_name: ~
+    instagram_client_id: ~
+    instagram_client_secret: ~
+    instagram_access_token: ~

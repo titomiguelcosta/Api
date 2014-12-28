@@ -54,6 +54,12 @@
         <service id="youtube.client" class="Google_Service_YouTube">
             <argument id="google.client" type="service"></argument>
         </service>
+        <service id="instagram.client" class="MetzWeb\Instagram\Instagram">
+            <argument>%instagram_client_id%</argument>
+            <call method="setAccessToken">
+                <argument>%instagram_access_token%</argument>
+            </call>
+        </service>
     </services>
 
 </container>

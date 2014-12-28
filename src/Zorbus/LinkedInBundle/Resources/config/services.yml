@@ -11,9 +11,9 @@ services:
         arguments:
             - @zorbus_linkedin.guzzle.client
     zorbus_linkedin.storage:
-        class: Zorbus\LinkedIn\Storage\SymfonySessionAdapter
+        class: Zorbus\LinkedInBundle\Storage\EntityManagerStorage
         arguments:
-            - @session
+            - @doctrine.orm.entity_manager
     zorbus_linkedin.serializer:
         class: Zorbus\LinkedIn\Serializer\JmsSerializer
         arguments:

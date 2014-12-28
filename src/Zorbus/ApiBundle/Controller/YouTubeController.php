@@ -5,26 +5,32 @@ namespace Zorbus\ApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
 
 class YouTubeController extends Controller
 {
     /**
-     * @Route("/youtube/playlists", name="youtube.playlists")
+     * @Route("/youtube/music", name="youtube.playlists")
      * @Method({"GET"})
      * @return array
      */
-    public function playlistsAction()
+    public function playlistsAction(Request $request)
     {
+        $page = $request->query->get('page', null);
+
         /** @var \Google_Service_YouTube $client */
         $client = $this->get('youtube.client');
 
-        /** @var \Google_Service_YouTube_PlaylistListResponse $response */
-        $response = $client->playlists->listPlaylists('contentDetails', [
-            'mine' => true,
-            'maxResults' => 10
+        $response = $client->playlistItems->listPlaylistItems('snippet', [
+            'playlistId' => 'PL3E4772C48425800C',
+            'maxResults' => 5,
+            'pageToken' => $page
         ]);
 
-        return $response->getItems();
+        return [
+            'nextPageToken' => $response->getNextPageToken(),
+            'prevPageToken' => $response->getPrevPageToken(),
+            'items' => $response->getItems(),
+        ];
     }
 }
-

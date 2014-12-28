@@ -4,8 +4,51 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "099fdabbfc50b718d2fd139c7bd73905",
+    "hash": "c9025bd9f4050686ca29aeee7cf90fb7",
     "packages": [
+        {
+            "name": "cosenary/instagram",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cosenary/Instagram-PHP-API.git",
+                "reference": "f5861d612e20c131250b79fecb6e3b638d5d44a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cosenary/Instagram-PHP-API/zipball/f5861d612e20c131250b79fecb6e3b638d5d44a0",
+                "reference": "f5861d612e20c131250b79fecb6e3b638d5d44a0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MetzWeb\\Instagram\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Metz",
+                    "email": "christian-metz1@gmx.net",
+                    "homepage": "http://metzweb.net"
+                }
+            ],
+            "description": "An easy-to-use PHP Class for accessing Instagram's API.",
+            "homepage": "https://github.com/cosenary/Instagram-PHP-API",
+            "keywords": [
+                "api",
+                "instagram"
+            ],
+            "time": "2014-10-04 19:21:13"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.3",

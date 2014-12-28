@@ -11,6 +11,8 @@ use Zorbus\LinkedIn\Storage\StorageInterface;
 class Manager
 {
     const STATE_KEY = 'zorbus_linkedin_state';
+    const ACCESS_TOKEN = 'zorbus_linkedin_access_token';
+    const EXPIRES_IN = 'zorbus_linkedin_expires_in';
 
     private $key = null;
     private $redirectUrl = null;
@@ -52,9 +54,9 @@ class Manager
     }
 
     /**
-     * @param string $code the query parameter sent by LinkenId
-     * @param string $state string the query parameter sent by LinkenIn
-     * @param string $secret string the application secret registered on LinkendIn
+     * @param string $code the query parameter sent by LinkedId
+     * @param string $state string the query parameter sent by LinkedIn
+     * @param string $secret string the application secret registered on LinkedIn
      * @param null $key the application key registered on LinkedIn
      * @param null $redirectUrl
      * @return array Returns array with keys access_token and expires_in
@@ -86,6 +88,9 @@ class Manager
                 if (!array_key_exists('access_token', $data) || !array_key_exists('expires_in', $data)) {
                     throw new \LogicException('Missing at least one of the keys: access_token or expires_in', 500);
                 }
+
+                $this->storage->store(self::ACCESS_TOKEN, $data['access_token']);
+                $this->storage->store(self::EXPIRES_IN, $data['expires_in']);
             } else {
                 throw new \LogicException('Unexpected response', 500);
             }
@@ -96,6 +101,10 @@ class Manager
         return $data;
     }
 
+    /**
+     * @param array $fields
+     * @return \Zorbus\LinkedIn\Model\Profile
+     */
     public function getProfile(array $fields = null)
     {
         $fields = null === $fields ?
@@ -103,19 +112,32 @@ class Manager
             ':(' . implode(',', $fields) . ')';
 
         $uri = '/people/~' . $fields;
-        $method = ClientInterface::METHOD_GET;
-        $parameters = [];
-        $headers = [];
 
-        /** @var \GuzzleHttp\Message\Response $response */
-        $response = $this->client->call($uri, $method, $parameters, $headers);
+        return $this->execute($uri, 'Zorbus\LinkedIn\Model\Profile');
+    }
 
-        $profile = (string) $response->getBody()->getContents();
+    protected function execute($uri, $model = null, $method = ClientInterface::METHOD_GET, $parameters = [], $headers = [])
+    {
+        $data = null;
 
-        if ($this->serializer instanceof SerializerInterface) {
-            $profile = $this->serializer->deserialize($profile, 'Zorbus\LinkedIn\Model\Profile', 'json');
+        if (!array_key_exists('Authorization', $headers)) {
+            $this->client->setAuthorization($this->storage->retrieve(self::ACCESS_TOKEN));
         }
 
-        return $profile;
+        /** @var \GuzzleHttp\Message\Response $response */
+        $data = $this->client->call($uri, $method, $parameters, $headers);
+
+        // ToDO: Client should always return a consistent Response object, not rely on Guzzle
+        if ($data instanceof Response) {
+            $data = (string)$data->getBody()->getContents();
+        }
+
+        if (null !== $model && $this->serializer instanceof SerializerInterface) {
+            $data = $this->serializer->deserialize($data, $model, 'json');
+        } else {
+            $data = json_decode($data, true);
+        }
+
+        return $data;
     }
 }
