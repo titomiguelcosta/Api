@@ -17,6 +17,7 @@ set  :keep_releases,  3
 # logger.level = Logger::MAX_LEVEL
 
 set :symfony_env_prod, "prod"
+set :interactive_mode, false
 
 set :user, "ubuntu"
 set :use_sudo, false
@@ -31,3 +32,5 @@ set :vendors_mode, "install"
 set :copy_vendors, true
 
 after "deploy", "deploy:cleanup"
+after "deploy:create_symlink", "symfony:doctrine:migrations:migrate"
+# after "deploy:create_symlink", "symfony:doctrine:load_fixtures"
