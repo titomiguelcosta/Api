@@ -40,11 +40,11 @@ class EntityManagerStorage implements StorageInterface
     {
         $object = $this->getStorageByField($key);
 
-        if (false === $object instanceof Storage) {
-            throw new \LogicException('No storage entry for key ' . $key);
-        }
+        $value = $object instanceof Storage
+            ? $object->getValue()
+            : null;
 
-        return $object->getValue();
+        return $value;
     }
 
     public function remove($key)

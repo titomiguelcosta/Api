@@ -64,7 +64,7 @@ class Manager
     public function authenticate($code, $state, $secret, $key = null, $redirectUrl = null)
     {
         if ($state !== $this->storage->retrieve(self::STATE_KEY)) {
-            $message = sprintf('State %s does not match the saved state %s.', $state, $this->storage->retrieve('state'));
+            $message = sprintf('State %s does not match the saved state %s.', $state, $this->storage->retrieve(self::STATE_KEY));
             throw new \RuntimeException($message);
         } else {
             $this->storage->remove(self::STATE_KEY);
@@ -123,7 +123,7 @@ class Manager
             if (!$accessToken){
                 throw new \LogicException('No access token available for authentication');
             }
-            
+
             $this->client->setAuthorization($accessToken);
         }
 
