@@ -65,5 +65,7 @@ class LinkedInController extends Controller
             'educations',
             'courses',
         ]);
+
+        return $profile;
     }
 }

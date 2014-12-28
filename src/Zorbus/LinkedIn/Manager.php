@@ -110,7 +110,7 @@ class Manager
 
         $uri = '/people/~' . $fields;
 
-        return $this->execute($uri, 'Zorbus\LinkedIn\Model\Profile');
+        return $this->execute($uri);
     }
 
     protected function execute($uri, $model = null, $method = ClientInterface::METHOD_GET, $parameters = [], $headers = [])
