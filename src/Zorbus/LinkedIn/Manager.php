@@ -102,7 +102,7 @@ class Manager
      * @param array $fields
      * @return \Zorbus\LinkedIn\Model\Profile
      */
-    public function getProfile(array $fields = null)
+    public function getProfile(array $fields = null, $model = null)
     {
         $fields = null === $fields ?
             '' :
@@ -110,7 +110,7 @@ class Manager
 
         $uri = '/people/~' . $fields;
 
-        return $this->execute($uri);
+        return $this->execute($uri, $model);
     }
 
     protected function execute($uri, $model = null, $method = ClientInterface::METHOD_GET, $parameters = [], $headers = [])

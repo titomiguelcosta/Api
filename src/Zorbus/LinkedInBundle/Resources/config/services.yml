@@ -6,11 +6,22 @@ parameters:
 services:
     zorbus_linkedin.guzzle.client:
         class: GuzzleHttp\Client
-    zorbus_linkedin.client:
+    zorbus_linkedin.client.auth:
         class: Zorbus\LinkedIn\Client\GuzzleClientAdapter
         arguments:
             - @zorbus_linkedin.guzzle.client
-    zorbus_linkedin.storage:
+    zorbus_linkedin.client.api:
+        class: Zorbus\LinkedIn\Client\GuzzleClientAdapter
+        arguments:
+            - @zorbus_linkedin.guzzle.client
+        calls:
+            - ['setBaseUrl', ['https://api.linkedin.com/v1']]
+            - ['setResponseFormat', ['json']]
+    zorbus_linkedin.storage.session:
+            class: Zorbus\LinkedIn\Storage\SymfonySessionAdapter
+            arguments:
+                - @session
+    zorbus_linkedin.storage.entity_manager:
         class: Zorbus\LinkedInBundle\Storage\EntityManagerStorage
         arguments:
             - @doctrine.orm.entity_manager
@@ -18,15 +29,21 @@ services:
         class: Zorbus\LinkedIn\Serializer\JmsSerializer
         arguments:
             - @jms_serializer.serializer
-    zorbus_linkedin.manager:
+    zorbus_linkedin.manager.auth:
         class: Zorbus\LinkedIn\Manager
         arguments:
-            - @zorbus_linkedin.client
-            - @zorbus_linkedin.storage
+            - @zorbus_linkedin.client.auth
+            - @zorbus_linkedin.storage.session
+            - @zorbus_linkedin.serializer
+    zorbus_linkedin.manager.api:
+        class: Zorbus\LinkedIn\Manager
+        arguments:
+            - @zorbus_linkedin.client.api
+            - @zorbus_linkedin.storage.entity_manager
             - @zorbus_linkedin.serializer
     zorbus.api.linkedin.access_token:
          class: Zorbus\LinkedInBundle\EventListener\LinkedInAccessTokenSubscriber
          arguments:
-            - @zorbus_linkedin.storage
+            - @zorbus_linkedin.storage.entity_manager
          tags:
             - { name: kernel.event_subscriber }

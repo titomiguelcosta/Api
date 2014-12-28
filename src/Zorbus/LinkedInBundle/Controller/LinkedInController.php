@@ -14,7 +14,7 @@ class LinkedInController extends Controller
     public function authorizeAction(Request $request)
     {
         /** @var \Zorbus\LinkedIn\Manager $manager */
-        $manager = $this->get('zorbus_linkedin.manager');
+        $manager = $this->get('zorbus_linkedin.manager.auth');
 
         $key = $this->container->getParameter('zorbus_linkedin.key');
         $scope = $this->container->getParameter('zorbus_linkedin.scope');
@@ -26,7 +26,7 @@ class LinkedInController extends Controller
     public function authenticateAction(Request $request)
     {
         /** @var \Zorbus\LinkedIn\Manager $manager */
-        $manager = $this->get('zorbus_linkedin.manager');
+        $manager = $this->get('zorbus_linkedin.manager.auth');
 
         $code = $request->query->get('code');
         $state = $request->query->get('state');
@@ -46,7 +46,7 @@ class LinkedInController extends Controller
     public function profileAction(Request $request)
     {
         /** @var \Zorbus\LinkedIn\Manager $manager */
-        $manager = $this->get('zorbus_linkedin.manager');
+        $manager = $this->get('zorbus_linkedin.manager.api');
 
         $profile = $manager->getProfile([
             'id',

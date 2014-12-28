@@ -53,7 +53,7 @@ class GuzzleClientAdapter implements ClientInterface
         try {
             return $this->client->send($request);
         } catch (ClientException $e) {
-            throw new \RuntimeException("Invalid request", 500, $e);
+            throw new \RuntimeException("Invalid request to ".$this->baseUrl . $uri, 500, $e);
         }
     }
 }
